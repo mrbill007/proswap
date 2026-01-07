@@ -126,7 +126,7 @@ export default function NewServicePage() {
       description: data.description || null,
       estimated_value: data.estimated_value ? parseFloat(data.estimated_value) : null,
       service_radius_miles: parseInt(data.service_radius_miles, 10) || 25,
-      status: 'pending', // First listing goes to moderation
+      status: 'active',
     } as never)
 
     if (error) {
@@ -135,9 +135,7 @@ export default function NewServicePage() {
       return
     }
 
-    toast.success(
-      'Service created! It will be visible after moderation review.'
-    )
+    toast.success('Service created successfully!')
     router.push('/profile/services')
     router.refresh()
   }
