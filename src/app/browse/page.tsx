@@ -127,10 +127,10 @@ export default async function BrowsePage({ searchParams }: Props) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex flex-col">
       <Header user={user} profile={currentUserProfile} />
 
-      <main className="flex-1">
+      <main>
         <div className="container px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
           <div className="flex flex-col gap-4 sm:gap-6">
             {/* Header */}
