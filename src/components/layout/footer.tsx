@@ -30,28 +30,28 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="border-t bg-muted/30">
-      <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
+      <div className="container px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
+        <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2">
-              <ArrowLeftRight className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">ProSwap</span>
+              <ArrowLeftRight className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+              <span className="text-base sm:text-lg font-bold">ProSwap</span>
             </Link>
-            <p className="mt-4 text-sm text-muted-foreground">
+            <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-muted-foreground">
               Trade Skills, Not Cash. Your expertise is your currency.
             </p>
           </div>
 
           {/* Links */}
           <div>
-            <h3 className="font-semibold mb-3">Product</h3>
-            <ul className="space-y-2">
+            <h3 className="text-sm sm:text-base font-semibold mb-2 sm:mb-3">Product</h3>
+            <ul className="space-y-1.5 sm:space-y-2">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -61,13 +61,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3">Company</h3>
-            <ul className="space-y-2">
+            <h3 className="text-sm sm:text-base font-semibold mb-2 sm:mb-3">Company</h3>
+            <ul className="space-y-1.5 sm:space-y-2">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -77,13 +77,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3">Support</h3>
-            <ul className="space-y-2">
+            <h3 className="text-sm sm:text-base font-semibold mb-2 sm:mb-3">Support</h3>
+            <ul className="space-y-1.5 sm:space-y-2">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -93,13 +93,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3">Legal</h3>
-            <ul className="space-y-2">
+            <h3 className="text-sm sm:text-base font-semibold mb-2 sm:mb-3">Legal</h3>
+            <ul className="space-y-1.5 sm:space-y-2">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -109,8 +109,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t">
-          <p className="text-center text-sm text-muted-foreground">
+        <div className="mt-6 sm:mt-8 md:mt-12 pt-4 sm:pt-6 md:pt-8 border-t">
+          <p className="text-center text-xs sm:text-sm text-muted-foreground">
             © {new Date().getFullYear()} ProSwap. All rights reserved.
           </p>
         </div>
