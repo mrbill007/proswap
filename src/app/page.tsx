@@ -1,65 +1,348 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Header } from '@/components/layout/header'
+import { Footer } from '@/components/layout/footer'
+import { createClient } from '@/lib/supabase/server'
+import {
+  ArrowLeftRight,
+  ArrowRight,
+  CheckCircle,
+  MessageSquare,
+  Search,
+  Shield,
+  Star,
+  Users,
+  Wrench,
+  Camera,
+  Monitor,
+  Car,
+  Paintbrush,
+  Dumbbell,
+  ChefHat,
+} from 'lucide-react'
 
-export default function Home() {
+const features = [
+  {
+    icon: Search,
+    title: 'Find Local Professionals',
+    description:
+      'Browse skilled professionals in your area offering services you need.',
+  },
+  {
+    icon: ArrowLeftRight,
+    title: 'Trade Skills Directly',
+    description:
+      'Exchange your expertise for services you need - no money changes hands.',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Secure Messaging',
+    description:
+      'Communicate safely through our anonymized messaging system.',
+  },
+  {
+    icon: Shield,
+    title: 'Trust & Safety',
+    description:
+      'Verified profiles and reviews help you trade with confidence.',
+  },
+]
+
+const categories = [
+  { name: 'Home Repair', icon: Wrench, count: '2,400+' },
+  { name: 'Photography', icon: Camera, count: '1,800+' },
+  { name: 'Tech & IT', icon: Monitor, count: '3,200+' },
+  { name: 'Automotive', icon: Car, count: '1,500+' },
+  { name: 'Design', icon: Paintbrush, count: '2,100+' },
+  { name: 'Health & Fitness', icon: Dumbbell, count: '900+' },
+]
+
+const steps = [
+  {
+    number: '1',
+    title: 'Create Your Profile',
+    description:
+      'Sign up and list the skills you offer and services you need.',
+  },
+  {
+    number: '2',
+    title: 'Find Matches',
+    description:
+      'Browse or let our AI find professionals who need what you offer.',
+  },
+  {
+    number: '3',
+    title: 'Propose a Trade',
+    description:
+      'Reach out, negotiate terms, and agree on a fair exchange.',
+  },
+  {
+    number: '4',
+    title: 'Complete & Review',
+    description:
+      'Finish the exchange and leave reviews to build your reputation.',
+  },
+]
+
+const testimonials = [
+  {
+    quote:
+      "I traded my web development skills for a complete bathroom remodel. Saved thousands and met an amazing contractor!",
+    author: 'Sarah M.',
+    role: 'Web Developer',
+    rating: 5,
+  },
+  {
+    quote:
+      "As a photographer, I've exchanged shoots for accounting services, car repairs, and even cooking lessons. ProSwap changed how I think about work.",
+    author: 'Marcus T.',
+    role: 'Professional Photographer',
+    rating: 5,
+  },
+  {
+    quote:
+      "My small salon gets constant traffic from trade partners. It's networking and bartering in one amazing platform.",
+    author: 'Lisa K.',
+    role: 'Salon Owner',
+    rating: 5,
+  },
+]
+
+export default async function HomePage() {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  let profile = null
+  if (user) {
+    const { data } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('user_id', user.id)
+      .single()
+    profile = data
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="flex min-h-screen flex-col">
+      <Header user={user} profile={profile} />
+
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background py-20 md:py-32">
+          <div className="container relative z-10">
+            <div className="mx-auto max-w-3xl text-center">
+              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+                Trade Skills,{' '}
+                <span className="text-primary">Not Cash</span>
+              </h1>
+              <p className="mt-6 text-lg text-muted-foreground md:text-xl">
+                Your expertise is your currency. Connect with local professionals
+                and exchange services based on skill value. An electrician for a
+                mechanic. A designer for a photographer. The possibilities are
+                endless.
+              </p>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
+                <Button size="lg" asChild>
+                  <Link href="/signup">
+                    Get Started Free
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="/browse">Browse Services</Link>
+                </Button>
+              </div>
+              <div className="mt-8 flex items-center justify-center gap-8 text-sm text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  <span>10,000+ Professionals</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <ArrowLeftRight className="h-4 w-4" />
+                  <span>5,000+ Trades Completed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Categories Section */}
+        <section className="py-16 md:py-24">
+          <div className="container">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Popular Categories
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Find professionals across dozens of skill categories
+              </p>
+            </div>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+              {categories.map((category) => (
+                <Link
+                  key={category.name}
+                  href={`/browse?category=${category.name.toLowerCase().replace(/ & /g, '-')}`}
+                  className="group"
+                >
+                  <Card className="transition-all hover:shadow-md hover:border-primary/50">
+                    <CardContent className="flex flex-col items-center p-6 text-center">
+                      <category.icon className="h-8 w-8 text-primary transition-transform group-hover:scale-110" />
+                      <h3 className="mt-4 font-medium">{category.name}</h3>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {category.count} listings
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-8 text-center">
+              <Button variant="outline" asChild>
+                <Link href="/categories">
+                  View All Categories
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="border-y bg-muted/30 py-16 md:py-24">
+          <div className="container">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Why Choose ProSwap?
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                The smarter way to exchange professional services
+              </p>
+            </div>
+            <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {features.map((feature) => (
+                <div key={feature.title} className="text-center">
+                  <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                    <feature.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="mt-4 font-semibold">{feature.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {feature.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className="py-16 md:py-24">
+          <div className="container">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight">How It Works</h2>
+              <p className="mt-4 text-muted-foreground">
+                Start trading skills in four simple steps
+              </p>
+            </div>
+            <div className="mt-12 grid gap-8 md:grid-cols-4">
+              {steps.map((step, index) => (
+                <div key={step.number} className="relative text-center">
+                  {index < steps.length - 1 && (
+                    <div className="absolute left-1/2 top-8 hidden h-0.5 w-full bg-border md:block" />
+                  )}
+                  <div className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">
+                    {step.number}
+                  </div>
+                  <h3 className="mt-4 font-semibold">{step.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {step.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="border-y bg-muted/30 py-16 md:py-24">
+          <div className="container">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tight">
+                What Our Users Say
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Join thousands of professionals already trading on ProSwap
+              </p>
+            </div>
+            <div className="mt-12 grid gap-8 md:grid-cols-3">
+              {testimonials.map((testimonial) => (
+                <Card key={testimonial.author}>
+                  <CardContent className="p-6">
+                    <div className="flex gap-1">
+                      {Array.from({ length: testimonial.rating }).map((_, i) => (
+                        <Star
+                          key={i}
+                          className="h-4 w-4 fill-primary text-primary"
+                        />
+                      ))}
+                    </div>
+                    <blockquote className="mt-4 text-muted-foreground">
+                      &quot;{testimonial.quote}&quot;
+                    </blockquote>
+                    <div className="mt-4">
+                      <p className="font-medium">{testimonial.author}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {testimonial.role}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 md:py-24">
+          <div className="container">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Ready to Start Trading?
+              </h2>
+              <p className="mt-4 text-muted-foreground">
+                Join ProSwap today and discover the power of skill-based
+                bartering. Your expertise has never been more valuable.
+              </p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
+                <Button size="lg" asChild>
+                  <Link href="/signup">
+                    Create Free Account
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+              <div className="mt-6 flex items-center justify-center gap-6 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span>Free to join</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span>No hidden fees</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span>Cancel anytime</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <Footer />
     </div>
-  );
+  )
 }

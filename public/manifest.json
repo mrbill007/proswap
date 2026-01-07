@@ -1,0 +1,42 @@
+{
+  "name": "ProSwap - Trade Skills, Not Cash",
+  "short_name": "ProSwap",
+  "description": "Professional skills bartering platform. Exchange services with local professionals.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f97316",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "lifestyle", "social"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Browse Services",
+      "short_name": "Browse",
+      "description": "Find professionals offering skills you need",
+      "url": "/browse",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Messages",
+      "short_name": "Messages",
+      "description": "View your conversations",
+      "url": "/messages",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ]
+}
