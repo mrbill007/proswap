@@ -91,7 +91,7 @@ export default async function BrowsePage({ searchParams }: Props) {
     .order('created_at', { ascending: false })
     .limit(50)
 
-  if (params.category) {
+  if (params.category && params.category !== 'all') {
     const { data: categoryLookup } = await supabase
       .from('categories')
       .select('id')
@@ -104,7 +104,7 @@ export default async function BrowsePage({ searchParams }: Props) {
     }
   }
 
-  if (params.state) {
+  if (params.state && params.state !== 'all') {
     query = query.eq('profile.state', params.state)
   }
 
@@ -168,12 +168,12 @@ export default async function BrowsePage({ searchParams }: Props) {
                       </SelectContent>
                     </Select>
 
-                    <Select name="category" defaultValue={params.category}>
+                    <Select name="category" defaultValue={params.category || 'all'}>
                       <SelectTrigger className="w-full md:w-[200px]">
                         <SelectValue placeholder="All Categories" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All Categories</SelectItem>
+                        <SelectItem value="all">All Categories</SelectItem>
                         {categories?.map((category) => (
                           <SelectItem key={category.id} value={category.slug}>
                             {category.name}
@@ -182,12 +182,12 @@ export default async function BrowsePage({ searchParams }: Props) {
                       </SelectContent>
                     </Select>
 
-                    <Select name="state" defaultValue={params.state}>
+                    <Select name="state" defaultValue={params.state || 'all'}>
                       <SelectTrigger className="w-full md:w-[180px]">
                         <SelectValue placeholder="All States" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All States</SelectItem>
+                        <SelectItem value="all">All States</SelectItem>
                         {uniqueStates.map((state) => (
                           <SelectItem key={state} value={state}>
                             {state}
