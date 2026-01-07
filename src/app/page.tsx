@@ -201,7 +201,7 @@ export default async function HomePage() {
             </div>
             <div className="mt-6 sm:mt-8 text-center">
               <Button variant="outline" asChild>
-                <Link href="/categories">
+                <Link href="/browse">
                   View All Categories
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
