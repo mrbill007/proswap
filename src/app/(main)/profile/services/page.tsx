@@ -33,34 +33,35 @@ export default async function ServicesPage() {
 
   const ServiceCard = ({ service }: { service: ServiceWithCategory }) => (
     <Card>
-      <CardContent className="pt-6">
-        <div className="flex items-start justify-between">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <h3 className="font-semibold">{service.title}</h3>
+      <CardContent className="p-4 sm:pt-6">
+        <div className="flex items-start justify-between gap-2">
+          <div className="space-y-1 min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="font-semibold text-sm sm:text-base truncate">{service.title}</h3>
               <Badge
                 variant={service.status === 'active' ? 'default' : 'secondary'}
+                className="text-xs shrink-0"
               >
                 {service.status}
               </Badge>
             </div>
             {service.category && (
-              <Badge variant="outline">{service.category.name}</Badge>
+              <Badge variant="outline" className="text-xs">{service.category.name}</Badge>
             )}
             {service.description && (
-              <p className="text-sm text-muted-foreground line-clamp-2 mt-2">
+              <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 mt-2">
                 {service.description}
               </p>
             )}
-            <div className="flex items-center gap-4 mt-3 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-2 sm:mt-3 text-xs sm:text-sm text-muted-foreground">
               {service.estimated_value && (
                 <span>Est. ${service.estimated_value.toLocaleString()}</span>
               )}
               <span>{service.service_radius_miles} mi radius</span>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button variant="ghost" size="icon" asChild>
+          <div className="flex gap-1 sm:gap-2 shrink-0">
+            <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9" asChild>
               <Link href={`/profile/services/${service.id}/edit`}>
                 <Edit className="h-4 w-4" />
                 <span className="sr-only">Edit</span>
@@ -73,15 +74,15 @@ export default async function ServicesPage() {
   )
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">My Services</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">My Services</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Manage what you offer and what you need
           </p>
         </div>
-        <Button asChild>
+        <Button asChild className="w-full sm:w-auto">
           <Link href="/profile/services/new">
             <Plus className="mr-2 h-4 w-4" />
             Add Service
@@ -89,28 +90,28 @@ export default async function ServicesPage() {
         </Button>
       </div>
 
-      <Tabs defaultValue="offers" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="offers">
+      <Tabs defaultValue="offers" className="space-y-3 sm:space-y-4">
+        <TabsList className="w-full sm:w-auto">
+          <TabsTrigger value="offers" className="flex-1 sm:flex-initial text-xs sm:text-sm">
             Offers ({offers.length})
           </TabsTrigger>
-          <TabsTrigger value="needs">
+          <TabsTrigger value="needs" className="flex-1 sm:flex-initial text-xs sm:text-sm">
             Needs ({needs.length})
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="offers" className="space-y-4">
+        <TabsContent value="offers" className="space-y-3 sm:space-y-4">
           {offers.length > 0 ? (
             offers.map((service) => (
               <ServiceCard key={service.id} service={service} />
             ))
           ) : (
             <Card>
-              <CardContent className="py-12 text-center">
-                <p className="text-muted-foreground mb-4">
+              <CardContent className="py-8 sm:py-12 text-center">
+                <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4">
                   You haven&apos;t added any services you offer yet.
                 </p>
-                <Button asChild>
+                <Button asChild className="w-full sm:w-auto">
                   <Link href="/profile/services/new?type=offer">
                     <Plus className="mr-2 h-4 w-4" />
                     Add Service You Offer
@@ -121,18 +122,18 @@ export default async function ServicesPage() {
           )}
         </TabsContent>
 
-        <TabsContent value="needs" className="space-y-4">
+        <TabsContent value="needs" className="space-y-3 sm:space-y-4">
           {needs.length > 0 ? (
             needs.map((service) => (
               <ServiceCard key={service.id} service={service} />
             ))
           ) : (
             <Card>
-              <CardContent className="py-12 text-center">
-                <p className="text-muted-foreground mb-4">
+              <CardContent className="py-8 sm:py-12 text-center">
+                <p className="text-sm sm:text-base text-muted-foreground mb-3 sm:mb-4">
                   You haven&apos;t added any services you need yet.
                 </p>
-                <Button asChild>
+                <Button asChild className="w-full sm:w-auto">
                   <Link href="/profile/services/new?type=need">
                     <Plus className="mr-2 h-4 w-4" />
                     Add Service You Need

@@ -26,7 +26,7 @@ export default async function MainLayout({
   return (
     <div className="flex min-h-screen flex-col">
       <Header user={user} profile={profile} />
-      <main className="flex-1 container py-8">{children}</main>
+      <main className="flex-1 container px-4 sm:px-6 lg:px-8 py-6 sm:py-8">{children}</main>
       <Footer />
     </div>
   )

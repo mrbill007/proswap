@@ -71,13 +71,13 @@ function LoginForm() {
 
   return (
     <Card className="w-full max-w-md">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Welcome back</CardTitle>
-        <CardDescription>
+      <CardHeader className="space-y-1 p-4 sm:p-6">
+        <CardTitle className="text-xl sm:text-2xl font-bold">Welcome back</CardTitle>
+        <CardDescription className="text-xs sm:text-sm">
           Sign in to your ProSwap account to continue trading
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4 sm:p-6 pt-0">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -131,8 +131,8 @@ function LoginForm() {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <div className="text-sm text-center text-muted-foreground">
+      <CardFooter className="flex flex-col space-y-4 p-4 sm:p-6 pt-0">
+        <div className="text-xs sm:text-sm text-center text-muted-foreground">
           Don&apos;t have an account?{' '}
           <Link href="/signup" className="text-primary hover:underline">
             Sign up

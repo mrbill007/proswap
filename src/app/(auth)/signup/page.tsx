@@ -93,20 +93,20 @@ export default function SignupPage() {
   if (isSuccess) {
     return (
       <Card className="w-full max-w-md">
-        <CardContent className="pt-6">
+        <CardContent className="p-4 sm:p-6">
           <div className="flex flex-col items-center text-center space-y-4">
-            <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-              <CheckCircle className="h-6 w-6 text-green-600" />
+            <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-green-100 flex items-center justify-center">
+              <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">Check your email</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <h2 className="text-lg sm:text-xl font-semibold">Check your email</h2>
+              <p className="mt-2 text-xs sm:text-sm text-muted-foreground">
                 We&apos;ve sent a verification link to{' '}
                 <strong>{form.getValues('email')}</strong>. Click the link to
                 verify your account and get started.
               </p>
             </div>
-            <Button variant="outline" asChild className="mt-4">
+            <Button variant="outline" asChild className="mt-4 w-full sm:w-auto">
               <Link href="/login">Back to sign in</Link>
             </Button>
           </div>
@@ -117,13 +117,13 @@ export default function SignupPage() {
 
   return (
     <Card className="w-full max-w-md">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-        <CardDescription>
+      <CardHeader className="space-y-1 p-4 sm:p-6">
+        <CardTitle className="text-xl sm:text-2xl font-bold">Create an account</CardTitle>
+        <CardDescription className="text-xs sm:text-sm">
           Join ProSwap and start trading your skills today
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4 sm:p-6 pt-0">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -204,8 +204,8 @@ export default function SignupPage() {
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <p className="text-xs text-center text-muted-foreground">
+      <CardFooter className="flex flex-col space-y-3 sm:space-y-4 p-4 sm:p-6 pt-0">
+        <p className="text-[10px] sm:text-xs text-center text-muted-foreground">
           By creating an account, you agree to our{' '}
           <Link href="/terms" className="underline hover:text-primary">
             Terms of Service
@@ -215,7 +215,7 @@ export default function SignupPage() {
             Privacy Policy
           </Link>
         </p>
-        <div className="text-sm text-center text-muted-foreground">
+        <div className="text-xs sm:text-sm text-center text-muted-foreground">
           Already have an account?{' '}
           <Link href="/login" className="text-primary hover:underline">
             Sign in

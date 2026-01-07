@@ -235,35 +235,36 @@ export default function EditProfilePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Edit Profile</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Edit Profile</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Update your profile information
         </p>
       </div>
 
       {/* Avatar Section */}
       <Card>
-        <CardHeader>
-          <CardTitle>Profile Photo</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-base sm:text-lg">Profile Photo</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">
             Upload a photo to help others recognize you
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-6">
-            <Avatar className="h-24 w-24">
+        <CardContent className="p-4 sm:p-6 pt-0">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+            <Avatar className="h-20 w-20 sm:h-24 sm:w-24">
               <AvatarImage src={avatarUrl || undefined} alt="Profile photo" />
-              <AvatarFallback className="text-2xl">
+              <AvatarFallback className="text-xl sm:text-2xl">
                 {profile?.display_name ? getInitials(profile.display_name) : 'U'}
               </AvatarFallback>
             </Avatar>
-            <div>
+            <div className="text-center sm:text-left">
               <Button
                 variant="outline"
                 disabled={isUploading}
                 onClick={() => document.getElementById('avatar-upload')?.click()}
+                className="w-full sm:w-auto"
               >
                 {isUploading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -289,15 +290,15 @@ export default function EditProfilePage() {
 
       {/* Profile Form */}
       <Card>
-        <CardHeader>
-          <CardTitle>Profile Information</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-base sm:text-lg">Profile Information</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">
             Tell others about yourself and your location
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 sm:p-6 pt-0">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
               <FormField
                 control={form.control}
                 name="display_name"
@@ -415,8 +416,8 @@ export default function EditProfilePage() {
                 )}
               />
 
-              <div className="flex gap-4">
-                <Button type="submit" disabled={isLoading}>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
                   {isLoading && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   )}
@@ -426,6 +427,7 @@ export default function EditProfilePage() {
                   type="button"
                   variant="outline"
                   onClick={() => router.back()}
+                  className="w-full sm:w-auto"
                 >
                   Cancel
                 </Button>

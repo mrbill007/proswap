@@ -143,24 +143,24 @@ export default function NewServicePage() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-4 sm:space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Add Service</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Add Service</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Create a new service listing
         </p>
       </div>
 
       <Card>
-        <CardHeader>
-          <CardTitle>Service Details</CardTitle>
-          <CardDescription>
+        <CardHeader className="p-4 sm:p-6">
+          <CardTitle className="text-base sm:text-lg">Service Details</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">
             Describe the service you offer or need
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-4 sm:p-6 pt-0">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
               <FormField
                 control={form.control}
                 name="type"
@@ -342,8 +342,8 @@ export default function NewServicePage() {
                 />
               </div>
 
-              <div className="flex gap-4">
-                <Button type="submit" disabled={isLoading}>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
                   {isLoading && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   )}
@@ -353,6 +353,7 @@ export default function NewServicePage() {
                   type="button"
                   variant="outline"
                   onClick={() => router.back()}
+                  className="w-full sm:w-auto"
                 >
                   Cancel
                 </Button>

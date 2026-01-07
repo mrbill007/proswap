@@ -131,22 +131,22 @@ export default async function BrowsePage({ searchParams }: Props) {
       <Header user={user} profile={currentUserProfile} />
 
       <main className="flex-1">
-        <div className="container py-8">
-          <div className="flex flex-col gap-6">
+        <div className="container px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <div className="flex flex-col gap-4 sm:gap-6">
             {/* Header */}
             <div>
-              <h1 className="text-3xl font-bold tracking-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
                 Browse Services
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Find professionals offering skills you need
               </p>
             </div>
 
             {/* Filters */}
             <Card>
-              <CardContent className="pt-6">
-                <form className="flex flex-col gap-4 md:flex-row">
+              <CardContent className="p-4 sm:p-6">
+                <form className="flex flex-col gap-3 sm:gap-4 md:flex-row">
                   <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
@@ -157,54 +157,56 @@ export default async function BrowsePage({ searchParams }: Props) {
                     />
                   </div>
 
-                  <Select name="type" defaultValue={params.type || 'offer'}>
-                    <SelectTrigger className="w-full md:w-[150px]">
-                      <SelectValue placeholder="Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="offer">Services Offered</SelectItem>
-                      <SelectItem value="need">Services Needed</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="grid grid-cols-2 gap-3 sm:flex sm:gap-4">
+                    <Select name="type" defaultValue={params.type || 'offer'}>
+                      <SelectTrigger className="w-full md:w-[150px]">
+                        <SelectValue placeholder="Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="offer">Services Offered</SelectItem>
+                        <SelectItem value="need">Services Needed</SelectItem>
+                      </SelectContent>
+                    </Select>
 
-                  <Select name="category" defaultValue={params.category}>
-                    <SelectTrigger className="w-full md:w-[200px]">
-                      <SelectValue placeholder="All Categories" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="">All Categories</SelectItem>
-                      {categories?.map((category) => (
-                        <SelectItem key={category.id} value={category.slug}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    <Select name="category" defaultValue={params.category}>
+                      <SelectTrigger className="w-full md:w-[200px]">
+                        <SelectValue placeholder="All Categories" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">All Categories</SelectItem>
+                        {categories?.map((category) => (
+                          <SelectItem key={category.id} value={category.slug}>
+                            {category.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                  <Select name="state" defaultValue={params.state}>
-                    <SelectTrigger className="w-full md:w-[180px]">
-                      <SelectValue placeholder="All States" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="">All States</SelectItem>
-                      {uniqueStates.map((state) => (
-                        <SelectItem key={state} value={state}>
-                          {state}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                    <Select name="state" defaultValue={params.state}>
+                      <SelectTrigger className="w-full md:w-[180px]">
+                        <SelectValue placeholder="All States" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">All States</SelectItem>
+                        {uniqueStates.map((state) => (
+                          <SelectItem key={state} value={state}>
+                            {state}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
 
-                  <Button type="submit">
-                    <Filter className="mr-2 h-4 w-4" />
-                    Filter
-                  </Button>
+                    <Button type="submit" className="w-full sm:w-auto">
+                      <Filter className="mr-2 h-4 w-4" />
+                      Filter
+                    </Button>
+                  </div>
                 </form>
               </CardContent>
             </Card>
 
             {/* Results */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {services && services.length > 0 ? (
                 services.map((service) => (
                   <Link
@@ -212,49 +214,49 @@ export default async function BrowsePage({ searchParams }: Props) {
                     href={`/u/${service.profile?.display_name?.toLowerCase().replace(/\s+/g, '-')}`}
                   >
                     <Card className="h-full hover:border-primary/50 transition-colors">
-                      <CardContent className="pt-6">
-                        <div className="flex items-start gap-4">
-                          <Avatar className="h-12 w-12">
+                      <CardContent className="p-4 sm:pt-6">
+                        <div className="flex items-start gap-3 sm:gap-4">
+                          <Avatar className="h-10 w-10 sm:h-12 sm:w-12">
                             <AvatarImage
                               src={service.profile?.avatar_url || undefined}
                               alt={service.profile?.display_name}
                             />
-                            <AvatarFallback>
+                            <AvatarFallback className="text-xs sm:text-sm">
                               {service.profile?.display_name
                                 ? getInitials(service.profile.display_name)
                                 : 'U'}
                             </AvatarFallback>
                           </Avatar>
                           <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold truncate">
+                            <h3 className="font-semibold text-sm sm:text-base truncate">
                               {service.title}
                             </h3>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-xs sm:text-sm text-muted-foreground">
                               {service.profile?.display_name}
                             </p>
                           </div>
                         </div>
 
                         {service.description && (
-                          <p className="mt-4 text-sm text-muted-foreground line-clamp-2">
+                          <p className="mt-3 sm:mt-4 text-xs sm:text-sm text-muted-foreground line-clamp-2">
                             {service.description}
                           </p>
                         )}
 
-                        <div className="mt-4 flex flex-wrap gap-2">
+                        <div className="mt-3 sm:mt-4 flex flex-wrap gap-1.5 sm:gap-2">
                           {service.category && (
-                            <Badge variant="secondary">
+                            <Badge variant="secondary" className="text-xs">
                               {service.category.name}
                             </Badge>
                           )}
                           {service.estimated_value && (
-                            <Badge variant="outline">
+                            <Badge variant="outline" className="text-xs">
                               ${service.estimated_value.toLocaleString()}
                             </Badge>
                           )}
                         </div>
 
-                        <div className="mt-4 flex items-center justify-between text-sm text-muted-foreground">
+                        <div className="mt-3 sm:mt-4 flex items-center justify-between text-xs sm:text-sm text-muted-foreground">
                           {service.profile?.city && service.profile?.state && (
                             <div className="flex items-center gap-1">
                               <MapPin className="h-3 w-3" />
@@ -279,11 +281,11 @@ export default async function BrowsePage({ searchParams }: Props) {
               ) : (
                 <div className="col-span-full">
                   <Card>
-                    <CardContent className="py-12 text-center">
-                      <p className="text-muted-foreground">
+                    <CardContent className="py-8 sm:py-12 text-center">
+                      <p className="text-sm sm:text-base text-muted-foreground">
                         No services found matching your criteria.
                       </p>
-                      <Button variant="outline" className="mt-4" asChild>
+                      <Button variant="outline" className="mt-3 sm:mt-4" asChild>
                         <Link href="/browse">Clear Filters</Link>
                       </Button>
                     </CardContent>

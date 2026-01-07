@@ -68,12 +68,12 @@ export function Header({ user, profile }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="container flex h-16 items-center justify-between">
+      <nav className="container flex h-14 sm:h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center gap-2">
-            <ArrowLeftRight className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold">ProSwap</span>
+        <div className="flex items-center gap-4 sm:gap-6">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2">
+            <ArrowLeftRight className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+            <span className="text-lg sm:text-xl font-bold">ProSwap</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -178,38 +178,38 @@ export function Header({ user, profile }: HeaderProps) {
         {/* Mobile Menu */}
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon">
-              <Menu className="h-6 w-6" />
+            <Button variant="ghost" size="icon" className="h-9 w-9">
+              <Menu className="h-5 w-5" />
               <span className="sr-only">Open menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-80">
-            <div className="flex flex-col gap-6 pt-6">
+          <SheetContent side="right" className="w-[280px] sm:w-80 p-4 sm:p-6">
+            <div className="flex flex-col gap-4 sm:gap-6 pt-4 sm:pt-6">
               {user && profile && (
-                <div className="flex items-center gap-3 pb-4 border-b">
-                  <Avatar className="h-12 w-12">
+                <div className="flex items-center gap-3 pb-3 sm:pb-4 border-b">
+                  <Avatar className="h-10 w-10 sm:h-12 sm:w-12">
                     <AvatarImage
                       src={profile.avatar_url || undefined}
                       alt={profile.display_name}
                     />
-                    <AvatarFallback>
+                    <AvatarFallback className="text-sm">
                       {getInitials(profile.display_name)}
                     </AvatarFallback>
                   </Avatar>
-                  <div>
-                    <p className="font-medium">{profile.display_name}</p>
-                    <p className="text-sm text-muted-foreground">{user.email}</p>
+                  <div className="min-w-0">
+                    <p className="font-medium text-sm sm:text-base truncate">{profile.display_name}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground truncate">{user.email}</p>
                   </div>
                 </div>
               )}
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                      'px-3 py-2.5 rounded-md text-sm font-medium transition-colors',
                       pathname === item.href
                         ? 'bg-accent text-accent-foreground'
                         : 'hover:bg-accent hover:text-accent-foreground'
@@ -222,13 +222,13 @@ export function Header({ user, profile }: HeaderProps) {
 
               {user ? (
                 <>
-                  <div className="flex flex-col gap-2 border-t pt-4">
+                  <div className="flex flex-col gap-1 border-t pt-3 sm:pt-4">
                     {userNavigation.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
                         className={cn(
-                          'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                          'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors',
                           pathname === item.href
                             ? 'bg-accent text-accent-foreground'
                             : 'hover:bg-accent hover:text-accent-foreground'
@@ -242,14 +242,14 @@ export function Header({ user, profile }: HeaderProps) {
                   <Button
                     variant="destructive"
                     onClick={handleSignOut}
-                    className="mt-4"
+                    className="mt-2 sm:mt-4"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
                     Sign out
                   </Button>
                 </>
               ) : (
-                <div className="flex flex-col gap-2 border-t pt-4">
+                <div className="flex flex-col gap-2 border-t pt-3 sm:pt-4">
                   <Button variant="outline" asChild>
                     <Link href="/login">Sign in</Link>
                   </Button>
