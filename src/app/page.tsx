@@ -126,10 +126,10 @@ export default async function HomePage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex flex-col">
       <Header user={user} profile={profile} />
 
-      <main className="flex-1">
+      <main>
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background py-12 sm:py-20 md:py-32">
           <div className="container px-4 sm:px-6 lg:px-8 relative z-10">
