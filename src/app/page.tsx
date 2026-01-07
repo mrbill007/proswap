@@ -305,7 +305,7 @@ export default async function HomePage() {
         </section>
 
         {/* CTA Section */}
-        <section className="pt-12 pb-6 sm:py-16 md:py-24">
+        <section className="pt-8 pb-4 sm:py-16 md:py-24">
           <div className="container px-4 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
