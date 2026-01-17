@@ -81,24 +81,28 @@ export default function EditServicePage() {
   // Load service data
   useEffect(() => {
     async function loadService() {
-      const { data: service, error } = await supabase
+      const { data, error } = await supabase
         .from('services')
         .select('*')
         .eq('id', serviceId)
         .single()
 
-      if (error || !service) {
+      if (error || !data) {
         toast.error('Service not found')
         router.push('/profile/services')
         return
       }
 
+      const service = data as Service
+
       // Determine if the category_id is a parent or subcategory
-      const { data: category } = await supabase
+      const { data: categoryData } = await supabase
         .from('categories')
         .select('id, parent_id')
         .eq('id', service.category_id)
         .single()
+
+      const category = categoryData as { id: string; parent_id: string | null } | null
 
       if (category?.parent_id) {
         // It's a subcategory, set parent for the dropdown
