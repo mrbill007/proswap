@@ -62,6 +62,7 @@ export default function NewServicePage() {
   const [isLoading, setIsLoading] = useState(false)
   const [categories, setCategories] = useState<Category[]>([])
   const [subcategories, setSubcategories] = useState<Category[]>([])
+  const [selectedParentCategory, setSelectedParentCategory] = useState<string>('')
 
   const form = useForm<ServiceFormData>({
     resolver: zodResolver(serviceSchema),
@@ -74,8 +75,6 @@ export default function NewServicePage() {
       service_radius_miles: '25',
     },
   })
-
-  const selectedCategoryId = form.watch('category_id')
 
   useEffect(() => {
     async function loadCategories() {
@@ -93,7 +92,7 @@ export default function NewServicePage() {
 
   useEffect(() => {
     async function loadSubcategories() {
-      if (!selectedCategoryId) {
+      if (!selectedParentCategory) {
         setSubcategories([])
         return
       }
@@ -101,14 +100,14 @@ export default function NewServicePage() {
       const { data } = await supabase
         .from('categories')
         .select('*')
-        .eq('parent_id', selectedCategoryId)
+        .eq('parent_id', selectedParentCategory)
         .order('sort_order')
 
       setSubcategories(data || [])
     }
 
     loadSubcategories()
-  }, [selectedCategoryId, supabase])
+  }, [selectedParentCategory, supabase])
 
   async function onSubmit(data: ServiceFormData) {
     setIsLoading(true)
@@ -201,7 +200,13 @@ export default function NewServicePage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
+                    <Select
+                      onValueChange={(value) => {
+                        setSelectedParentCategory(value)
+                        field.onChange(value)
+                      }}
+                      value={selectedParentCategory}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a category" />
@@ -228,7 +233,9 @@ export default function NewServicePage() {
                     <FormItem>
                       <FormLabel>Subcategory (Optional)</FormLabel>
                       <Select
-                        onValueChange={field.onChange}
+                        onValueChange={(value) => {
+                          field.onChange(value)
+                        }}
                         value={
                           subcategories.find((s) => s.id === field.value)
                             ? field.value

@@ -63,6 +63,7 @@ export default function EditServicePage() {
   const [isLoadingService, setIsLoadingService] = useState(true)
   const [categories, setCategories] = useState<Category[]>([])
   const [subcategories, setSubcategories] = useState<Category[]>([])
+  const [selectedParentCategory, setSelectedParentCategory] = useState<string>('')
 
   const form = useForm<ServiceFormData>({
     resolver: zodResolver(serviceSchema),
@@ -77,8 +78,6 @@ export default function EditServicePage() {
     },
   })
 
-  const selectedCategoryId = form.watch('category_id')
-
   // Load service data
   useEffect(() => {
     async function loadService() {
@@ -92,6 +91,21 @@ export default function EditServicePage() {
         toast.error('Service not found')
         router.push('/profile/services')
         return
+      }
+
+      // Determine if the category_id is a parent or subcategory
+      const { data: category } = await supabase
+        .from('categories')
+        .select('id, parent_id')
+        .eq('id', service.category_id)
+        .single()
+
+      if (category?.parent_id) {
+        // It's a subcategory, set parent for the dropdown
+        setSelectedParentCategory(category.parent_id)
+      } else {
+        // It's a parent category
+        setSelectedParentCategory(service.category_id)
       }
 
       form.reset({
@@ -127,7 +141,7 @@ export default function EditServicePage() {
   // Load subcategories
   useEffect(() => {
     async function loadSubcategories() {
-      if (!selectedCategoryId) {
+      if (!selectedParentCategory) {
         setSubcategories([])
         return
       }
@@ -135,14 +149,14 @@ export default function EditServicePage() {
       const { data } = await supabase
         .from('categories')
         .select('*')
-        .eq('parent_id', selectedCategoryId)
+        .eq('parent_id', selectedParentCategory)
         .order('sort_order')
 
       setSubcategories(data || [])
     }
 
     loadSubcategories()
-  }, [selectedCategoryId, supabase])
+  }, [selectedParentCategory, supabase])
 
   async function onSubmit(data: ServiceFormData) {
     setIsLoading(true)
@@ -276,7 +290,13 @@ export default function EditServicePage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Category</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
+                    <Select
+                      onValueChange={(value) => {
+                        setSelectedParentCategory(value)
+                        field.onChange(value)
+                      }}
+                      value={selectedParentCategory}
+                    >
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select a category" />
@@ -303,7 +323,9 @@ export default function EditServicePage() {
                     <FormItem>
                       <FormLabel>Subcategory (Optional)</FormLabel>
                       <Select
-                        onValueChange={field.onChange}
+                        onValueChange={(value) => {
+                          field.onChange(value)
+                        }}
                         value={
                           subcategories.find((s) => s.id === field.value)
                             ? field.value
