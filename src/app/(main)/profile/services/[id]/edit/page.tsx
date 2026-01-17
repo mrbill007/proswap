@@ -121,7 +121,8 @@ export default function EditServicePage() {
     }
 
     loadService()
-  }, [serviceId, supabase, form, router])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [serviceId])
 
   // Load categories
   useEffect(() => {
@@ -136,7 +137,8 @@ export default function EditServicePage() {
     }
 
     loadCategories()
-  }, [supabase])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // Load subcategories
   useEffect(() => {
@@ -156,7 +158,8 @@ export default function EditServicePage() {
     }
 
     loadSubcategories()
-  }, [selectedParentCategory, supabase])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedParentCategory])
 
   async function onSubmit(data: ServiceFormData) {
     setIsLoading(true)

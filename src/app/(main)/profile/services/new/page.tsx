@@ -88,7 +88,8 @@ export default function NewServicePage() {
     }
 
     loadCategories()
-  }, [supabase])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     async function loadSubcategories() {
@@ -107,7 +108,8 @@ export default function NewServicePage() {
     }
 
     loadSubcategories()
-  }, [selectedParentCategory, supabase])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedParentCategory])
 
   async function onSubmit(data: ServiceFormData) {
     setIsLoading(true)
